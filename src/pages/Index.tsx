@@ -67,37 +67,43 @@ const Index = () => {
       title: "Nepali Dating App",
       description: "A fully working web-based dating platform with user profiles, matching, chatbox, and preference filtering",
       tech: ["HTML", "CSS", "JavaScript"],
-      category: "Web Development"
+      category: "Web Development",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop"
     },
     {
       title: "Automatic Goalkeeper",
       description: "Raspberry Pi + OpenCV + servo motor-based real-time ball tracking system",
       tech: ["Python", "OpenCV", "Raspberry Pi"],
-      category: "IoT & AI"
+      category: "IoT & AI",
+      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop"
     },
     {
       title: "AI-Powered Job Application Bot",
       description: "Uses n8n and OpenAI API to auto-apply to IT jobs via LinkedIn",
       tech: ["n8n", "OpenAI API", "Automation"],
-      category: "AI & Automation"
+      category: "AI & Automation",
+      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=400&fit=crop"
     },
     {
       title: "MountEverestClothing MERN Website",
       description: "Full-stack e-commerce platform built with MERN stack",
       tech: ["React", "Node.js", "MongoDB", "Express"],
-      category: "Full-Stack"
+      category: "Full-Stack",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop"
     },
     {
       title: "Photographer Portfolio Website",
       description: "Professional portfolio website for Siddhant Rai",
       tech: ["React", "CSS", "Responsive Design"],
-      category: "Web Development"
+      category: "Web Development",
+      image: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=600&h=400&fit=crop"
     },
     {
       title: "Pet Adoption App",
       description: "Originally PHP-based application for pet adoption services",
       tech: ["PHP", "MySQL", "HTML", "CSS"],
-      category: "Web Development"
+      category: "Web Development",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop"
     }
   ];
 
@@ -122,12 +128,19 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark' : ''}`}>
-      {/* Enhanced Background */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20"></div>
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+      {/* Enhanced Animated Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20"></div>
+        
+        {/* Floating animated blobs */}
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-gradient-to-r from-purple-300 to-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-gradient-to-r from-yellow-300 to-orange-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-gradient-to-r from-pink-300 to-red-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 floating-blob animation-delay-4000"></div>
+        <div className="absolute bottom-0 right-1/4 w-60 h-60 bg-gradient-to-r from-blue-300 to-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-25 floating-blob"></div>
+        <div className="absolute top-1/3 left-1/3 w-48 h-48 bg-gradient-to-r from-green-300 to-teal-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 floating-blob animation-delay-2000"></div>
+        
+        {/* Gradient mesh overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
       </div>
 
       {/* Navigation */}
@@ -158,11 +171,15 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-20 pb-16 min-h-screen flex items-center relative">
-        <div className="container mx-auto px-4">
+      <section id="home" className="pt-20 pb-16 min-h-screen flex items-center relative overflow-hidden">
+        {/* Additional animated elements for hero */}
+        <div className="absolute top-1/4 -left-10 w-32 h-32 bg-gradient-to-br from-cyan-300 to-blue-400 rounded-full mix-blend-multiply filter blur-lg opacity-40 floating-blob"></div>
+        <div className="absolute bottom-1/3 -right-10 w-40 h-40 bg-gradient-to-br from-violet-300 to-purple-400 rounded-full mix-blend-multiply filter blur-lg opacity-40 floating-blob animation-delay-4000"></div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <div className="mb-8">
-              <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+              <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
                 Software Developer
               </h2>
               <h3 className="text-2xl md:text-3xl text-muted-foreground mb-4">
@@ -175,13 +192,13 @@ const Index = () => {
             </div>
             
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Button asChild size="lg" className="hover-scale">
+              <Button asChild size="lg" className="hover-scale bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
                 <a href="#projects">View Projects</a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="hover-scale">
+              <Button asChild variant="outline" size="lg" className="hover-scale border-primary/20 hover:border-primary/40">
                 <a href="#contact">Get In Touch</a>
               </Button>
-              <Button asChild variant="outline" size="lg" className="hover-scale">
+              <Button asChild variant="outline" size="lg" className="hover-scale border-primary/20 hover:border-primary/40">
                 <a href="/resume.pdf" download>
                   <Download className="h-4 w-4 mr-2" />
                   Resume
@@ -278,7 +295,7 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 relative">
+      <section id="projects" className="py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-6xl mx-auto">
@@ -298,8 +315,20 @@ const Index = () => {
                       ? 'translate-y-0 opacity-100 scale-100'
                       : 'translate-y-8 opacity-0 scale-95'
                   }`}
+                  style={{ transitionDelay: visibleProjects.includes(index) ? `${index * 0.1}s` : '0s' }}
                 >
-                  <Card className="hover-scale transition-all duration-300 hover:shadow-xl bg-background/80 backdrop-blur-sm border-2 hover:border-primary/20">
+                  <Card className="hover-scale transition-all duration-300 hover:shadow-xl bg-background/80 backdrop-blur-sm border-2 hover:border-primary/20 project-card-enter overflow-hidden">
+                    <div className="relative overflow-hidden">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src = `https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop`;
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
                     <CardHeader>
                       <div className="flex justify-between items-start mb-2">
                         <Badge variant="secondary" className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30">
