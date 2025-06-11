@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, Github, Linkedin, Mail, Download, ExternalLink, Code, Cpu, Globe, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,9 @@ import { useToast } from '@/hooks/use-toast';
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
   const { toast } = useToast();
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -30,6 +32,30 @@ const Index = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const projectObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = projectRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (index !== -1 && !visibleProjects.includes(index)) {
+              setTimeout(() => {
+                setVisibleProjects(prev => [...prev, index]);
+              }, index * 150); // Staggered animation delay
+            }
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    projectRefs.current.forEach((ref) => {
+      if (ref) projectObserver.observe(ref);
+    });
+
+    return () => projectObserver.disconnect();
+  }, [visibleProjects]);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -96,6 +122,14 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark' : ''}`}>
+      {/* Enhanced Background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20"></div>
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+      </div>
+
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -124,7 +158,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-20 pb-16 min-h-screen flex items-center">
+      <section id="home" className="pt-20 pb-16 min-h-screen flex items-center relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <div className="mb-8">
@@ -177,7 +211,7 @@ const Index = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-muted/30">
+      <section id="about" className="py-20 bg-background/60 backdrop-blur-sm relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16">About Me</h2>
@@ -244,37 +278,56 @@ const Index = () => {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20">
-        <div className="container mx-auto px-4">
+      <section id="projects" className="py-20 relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
+        <div className="container mx-auto px-4 relative">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-16">Featured Projects</h2>
+            <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Featured Projects
+            </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map((project, index) => (
-                <Card key={index} className="hover-scale transition-all duration-300 hover:shadow-lg">
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-2">
-                      <Badge variant="secondary">{project.category}</Badge>
-                      <ExternalLink className="h-4 w-4 text-muted-foreground" />
-                    </div>
-                    <CardTitle className="text-xl">{project.title}</CardTitle>
-                    <CardDescription>{project.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <Badge key={techIndex} variant="outline" className="text-xs">
-                          {tech}
+                <div
+                  key={index}
+                  ref={(el) => {
+                    projectRefs.current[index] = el;
+                  }}
+                  className={`transform transition-all duration-700 ease-out ${
+                    visibleProjects.includes(index)
+                      ? 'translate-y-0 opacity-100 scale-100'
+                      : 'translate-y-8 opacity-0 scale-95'
+                  }`}
+                >
+                  <Card className="hover-scale transition-all duration-300 hover:shadow-xl bg-background/80 backdrop-blur-sm border-2 hover:border-primary/20">
+                    <CardHeader>
+                      <div className="flex justify-between items-start mb-2">
+                        <Badge variant="secondary" className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30">
+                          {project.category}
                         </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                        <ExternalLink className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors" />
+                      </div>
+                      <CardTitle className="text-xl bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
+                        {project.title}
+                      </CardTitle>
+                      <CardDescription>{project.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tech, techIndex) => (
+                          <Badge key={techIndex} variant="outline" className="text-xs hover:bg-primary/10 transition-colors">
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               ))}
             </div>
 
             <div className="text-center mt-12">
-              <Button asChild variant="outline" size="lg" className="hover-scale">
+              <Button asChild variant="outline" size="lg" className="hover-scale bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-primary/20 hover:border-primary/40">
                 <a href="https://github.com/bipinmahat1" target="_blank" rel="noopener noreferrer">
                   <Github className="h-4 w-4 mr-2" />
                   View All Projects on GitHub
@@ -286,7 +339,7 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-muted/30">
+      <section id="contact" className="py-20 bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 relative">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16">Get In Touch</h2>
@@ -336,7 +389,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t">
+      <footer className="py-12 border-t bg-background/60 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
