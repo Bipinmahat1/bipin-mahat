@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, Github, Linkedin, Mail, Download, ExternalLink, Code, Cpu, Globe, Database } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,13 +6,16 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from '@emailjs/browser';
 
 const Index = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [visibleProjects, setVisibleProjects] = useState<number[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -118,12 +120,59 @@ const Index = () => {
     { name: "C#", icon: Code, level: "Intermediate" }
   ];
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon!"
-    });
+    setIsSubmitting(true);
+
+    if (!formRef.current) {
+      toast({
+        title: "Error",
+        description: "Form reference is missing. Please try again.",
+        variant: "destructive"
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const formData = new FormData(formRef.current);
+    const templateParams = {
+      from_name: formData.get('name'),
+      from_email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+      to_email: 'Bipinmahat643@gmail.com'
+    };
+
+    try {
+      // You'll need to set up EmailJS account and replace these with your actual IDs
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+        templateParams,
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon!"
+      });
+
+      // Reset form
+      formRef.current.reset();
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      
+      // Fallback to mailto if EmailJS fails
+      const mailtoLink = `mailto:Bipinmahat643@gmail.com?subject=${encodeURIComponent(formData.get('subject') as string || 'Portfolio Website Inquiry')}&body=${encodeURIComponent(`Name: ${formData.get('name')}\nEmail: ${formData.get('from_email')}\n\nMessage:\n${formData.get('message')}`)}`;
+      window.location.href = mailtoLink;
+      
+      toast({
+        title: "Redirecting to Email",
+        description: "Opening your email client as a backup method."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -381,34 +430,40 @@ const Index = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleContactSubmit} className="space-y-6">
+                <form ref={formRef} onSubmit={handleContactSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-medium mb-2 block">Name</label>
-                      <Input placeholder="Your name" required />
+                      <Input name="name" placeholder="Your name" required />
                     </div>
                     <div>
                       <label className="text-sm font-medium mb-2 block">Email</label>
-                      <Input type="email" placeholder="your.email@example.com" required />
+                      <Input name="email" type="email" placeholder="your.email@example.com" required />
                     </div>
                   </div>
                   
                   <div>
                     <label className="text-sm font-medium mb-2 block">Subject</label>
-                    <Input placeholder="What's this about?" required />
+                    <Input name="subject" placeholder="What's this about?" required />
                   </div>
                   
                   <div>
                     <label className="text-sm font-medium mb-2 block">Message</label>
                     <Textarea 
+                      name="message"
                       placeholder="Tell me about your project or idea..." 
                       rows={6} 
                       required 
                     />
                   </div>
                   
-                  <Button type="submit" size="lg" className="w-full hover-scale">
-                    Send Message
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    className="w-full hover-scale" 
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>
