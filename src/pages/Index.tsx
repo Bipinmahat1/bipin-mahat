@@ -248,7 +248,7 @@ const Index = () => {
                 <a href="#contact">Get In Touch</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="hover-scale border-primary/20 hover:border-primary/40">
-                <a href="/resume.pdf" download>
+                <a href="https://drive.google.com/file/d/1your-google-drive-file-id/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                   <Download className="h-4 w-4 mr-2" />
                   Resume
                 </a>
@@ -283,19 +283,27 @@ const Index = () => {
             <h2 className="text-4xl font-bold text-center mb-16">About Me</h2>
             
             <div className="grid md:grid-cols-2 gap-12 mb-16">
-              <div>
+              <div className="flex flex-col items-center">
+                <div className="relative mb-6 group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                  <img 
+                    src="/lovable-uploads/b69c7e36-6ad3-4aad-a2d2-4d782a319819.png" 
+                    alt="Bipin Mahat - Software Developer"
+                    className="relative w-64 h-64 object-cover rounded-full border-4 border-background shadow-2xl hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <h3 className="text-2xl font-semibold mb-6">Background</h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-4 text-center">
                   I'm a passionate Software Developer with an Advanced Diploma in Computer Engineering Technology 
                   from Seneca College, Toronto. My journey in tech has been driven by curiosity and a desire to 
                   create innovative solutions.
                 </p>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-4 text-center">
                   Based in Toronto, Ontario, I specialize in full-stack development, AI automation, and IoT projects. 
                   I've worked as an IT Support Specialist at NEPTEC Corporation and served as a Lab Assistant & 
                   HyFlex Ambassador at Seneca College for over 3 semesters.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-center">
                   When I'm not coding, you might find me exploring the latest in ethical hacking, 
                   experimenting with Raspberry Pi projects, or diving deep into AI/ML technologies.
                 </p>
