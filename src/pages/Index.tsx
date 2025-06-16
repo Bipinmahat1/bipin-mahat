@@ -279,53 +279,62 @@ const Index = () => {
       {/* About Section */}
       <section id="about" className="py-20 bg-background/60 backdrop-blur-sm relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold text-center mb-16">About Me</h2>
             
-            <div className="grid md:grid-cols-2 gap-12 mb-16">
-              <div className="flex flex-col items-center">
+            <div className="grid lg:grid-cols-3 gap-8 mb-12">
+              {/* Photo Column */}
+              <div className="lg:col-span-1 flex flex-col items-center">
                 <div className="relative mb-6 group">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                   <img 
                     src="/lovable-uploads/b69c7e36-6ad3-4aad-a2d2-4d782a319819.png" 
                     alt="Bipin Mahat - Software Developer"
-                    className="relative w-64 h-64 object-cover rounded-full border-4 border-background shadow-2xl hover:scale-105 transition-transform duration-300"
+                    className="relative w-48 h-48 lg:w-56 lg:h-56 object-cover rounded-full border-4 border-background shadow-2xl hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <h3 className="text-2xl font-semibold mb-6">Background</h3>
-                <p className="text-muted-foreground mb-4 text-center">
-                  I'm a passionate Software Developer with an Advanced Diploma in Computer Engineering Technology 
-                  from Seneca College, Toronto. My journey in tech has been driven by curiosity and a desire to 
-                  create innovative solutions.
-                </p>
-                <p className="text-muted-foreground mb-4 text-center">
-                  Based in Toronto, Ontario, I specialize in full-stack development, AI automation, and IoT projects. 
-                  I've worked as an IT Support Specialist at NEPTEC Corporation and served as a Lab Assistant & 
-                  HyFlex Ambassador at Seneca College for over 3 semesters.
-                </p>
-                <p className="text-muted-foreground text-center">
-                  When I'm not coding, you might find me exploring the latest in ethical hacking, 
-                  experimenting with Raspberry Pi projects, or diving deep into AI/ML technologies.
-                </p>
               </div>
               
-              <div>
-                <h3 className="text-2xl font-semibold mb-6">Skills & Expertise</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {skills.map((skill, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-background border">
-                      <skill.icon className="h-5 w-5 text-primary" />
-                      <div>
-                        <div className="font-medium">{skill.name}</div>
-                        <div className="text-xs text-muted-foreground">{skill.level}</div>
-                      </div>
-                    </div>
-                  ))}
+              {/* Background Text Column */}
+              <div className="lg:col-span-2 flex flex-col justify-center">
+                <h3 className="text-2xl font-semibold mb-6 text-center lg:text-left">Background</h3>
+                <div className="space-y-4 text-center lg:text-left">
+                  <p className="text-muted-foreground">
+                    I'm a passionate Software Developer with an Advanced Diploma in Computer Engineering Technology 
+                    from Seneca College, Toronto. My journey in tech has been driven by curiosity and a desire to 
+                    create innovative solutions.
+                  </p>
+                  <p className="text-muted-foreground">
+                    Based in Toronto, Ontario, I specialize in full-stack development, AI automation, and IoT projects. 
+                    I've worked as an IT Support Specialist at NEPTEC Corporation and served as a Lab Assistant & 
+                    HyFlex Ambassador at Seneca College for over 3 semesters.
+                  </p>
+                  <p className="text-muted-foreground">
+                    When I'm not coding, you might find me exploring the latest in ethical hacking, 
+                    experimenting with Raspberry Pi projects, or diving deep into AI/ML technologies.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            {/* Skills Section - Better integrated */}
+            <div className="max-w-4xl mx-auto">
+              <h3 className="text-2xl font-semibold mb-8 text-center">Skills & Expertise</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                {skills.map((skill, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-background border hover:shadow-md transition-shadow">
+                    <skill.icon className="h-5 w-5 text-primary flex-shrink-0" />
+                    <div className="min-w-0">
+                      <div className="font-medium text-sm truncate">{skill.name}</div>
+                      <div className="text-xs text-muted-foreground">{skill.level}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <Card className="text-center hover-scale">
                 <CardHeader>
                   <CardTitle className="text-3xl font-bold text-primary">3+</CardTitle>
