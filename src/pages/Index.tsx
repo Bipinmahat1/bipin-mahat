@@ -70,42 +70,42 @@ const Index = () => {
       description: "A fully working web-based dating platform with user profiles, matching, chatbox, and preference filtering",
       tech: ["HTML", "CSS", "JavaScript"],
       category: "Web Development",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop"
+      image: "public/images/date.jpeg"
     },
     {
       title: "Automatic Goalkeeper",
       description: "Raspberry Pi + OpenCV + servo motor-based real-time ball tracking system",
       tech: ["Python", "OpenCV", "Raspberry Pi"],
       category: "IoT & AI",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&h=400&fit=crop"
+      image: "public/images/football.jpeg"
     },
     {
       title: "AI-Powered Job Application Bot",
       description: "Uses n8n and OpenAI API to auto-apply to IT jobs via LinkedIn",
       tech: ["n8n", "OpenAI API", "Automation"],
       category: "AI & Automation",
-      image: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=400&fit=crop"
+      image: "public/images/jobbot.jpeg"
     },
     {
-      title: "MountEverestClothing MERN Website",
+      title: "MountEverestClothing Website",
       description: "Full-stack e-commerce platform built with MERN stack",
       tech: ["React", "Node.js", "MongoDB", "Express"],
       category: "Full-Stack",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop"
+      image: "public/images/clothing.jpeg"
     },
     {
       title: "Photographer Portfolio Website",
       description: "Professional portfolio website for Siddhant Rai",
       tech: ["React", "CSS", "Responsive Design"],
       category: "Web Development",
-      image: "https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=600&h=400&fit=crop"
+      image: "public/images/photgrapher.jpeg"
     },
     {
       title: "Pet Adoption App",
       description: "Originally PHP-based application for pet adoption services",
       tech: ["PHP", "MySQL", "HTML", "CSS"],
       category: "Web Development",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop"
+      image: "public/images/pet.jpeg"
     }
   ];
 
@@ -500,7 +500,7 @@ const Index = () => {
               Software Developer • AI Enthusiast • Tech Innovator
             </p>
             <p className="text-sm text-muted-foreground mb-4">
-              Toronto, Ontario • Also known as "Bips baby" 😉
+              Toronto, Ontario
             </p>
             <div className="flex justify-center gap-6 mb-6">
               <Button asChild variant="ghost">
@@ -514,7 +514,7 @@ const Index = () => {
                 </a>
               </Button>
               <Button asChild variant="ghost">
-                <a href="mailto:bipin@example.com">
+                <a href="mailto:bipinmahat643@gmail.com">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>
